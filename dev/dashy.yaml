@@ -1,0 +1,41 @@
+
+services:
+  dashy:
+    # To build from source, replace 'image: lissy93/dashy' with 'build: .'
+    # build: .
+    image: lissy93/dashy:latest
+    container_name: Dashy
+    #Pass in your config file below, by specifying the path on your host machine
+    volumes:
+      - /home/atort88/docker/dashy/my-config.yml:/app/public/conf.yml
+    ports:
+      - "192.168.0.208:4040:80"
+    # Set any environmental variables
+    environment:
+      - NODE_ENV=production
+    # Specify your user ID and group ID. You can find this by running `id -u` and `id -g`
+      - UID=1000
+      - GID=1000
+    # Specify restart policy
+    restart: unless-stopped
+    # Configure healthchecks
+    #healthcheck:
+      #test: ['CMD', 'node', '/app/services/healthcheck']
+      #interval: 1m30s
+      #timeout: 10s
+      #retries: 3
+      #start_period: 40s
+  glances-monitoring:
+    image: nicolargo/glances:latest-full
+    pid: host
+    network_mode: host
+    ports:
+      - 61208:61208
+      - 61209:61209
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "/run/user/1000/podman/podman.sock:/run/user/1000/podman/podman.sock:ro"
+    environment:
+      - "GLANCES_OPT=-w"
+    restart: always 
+ #docker run -d --restart="always" -p 61208-61209:61208-61209 -e GLANCES_OPT="-w" -v /var/run/docker.sock:/var/run/docker.sock:ro -v /run/user/1000/podman/podman.sock:/run/user/1000/podman/podman.sock:ro --pid host nicolargo/glances:latest
