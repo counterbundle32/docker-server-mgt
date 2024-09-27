@@ -8,6 +8,8 @@ services:
         environment:
             - WARD_PORT=4000
             - WARD_THEME=dark
-            - WARD_NAME=leons-server
+            - WARD_NAME=server-name
+            - WARD_FOG=true
+            #- WARD_BACKGROUND= #HexColor for background when fog is disabled
         privileged: true
         image: antonyleons/ward
