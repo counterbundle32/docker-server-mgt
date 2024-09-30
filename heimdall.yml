@@ -9,7 +9,7 @@ services:
       - PGID=1000
       - TZ=Etc/UTC
     volumes:
-      - /home/atort88/docker/heimdall/config:/config
+      - /home/atort88/docker/appdata/heimdall/config:/config
     ports:
       - 85:80
       #- 443:443
