@@ -1,0 +1,11 @@
+version: '3.3'
+
+services:
+  uptime-kuma:
+    image: louislam/uptime-kuma:1
+    container_name: uptime-kuma
+    volumes:
+      - /home/atort88/docker/appdata/uptime-kuma-data:/app/data
+    ports:
+      - "192.168.0.208:3001:3001"  # <Host Port>:<Container Port>
+    restart: always
